@@ -39,11 +39,12 @@
           <label for="lastName" class="form__label">Last name</label>
         </div>
         <div class="btn-container">
-          <button class="btn" type="button" v-on:click="createPerson">
-                  <router-link class="btn " v-bind:to="'/'"
+          <button class="btn col-3" type="button" v-on:click="createPerson">
+                  <router-link class="btn  " v-bind:to="'/'"
                 >Add person</router-link
               >
           </button>
+          
         </div>
       </form>
     </div>
