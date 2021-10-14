@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="form__container">
+    <div v-if="!loading" class="form__container">
       <form>
         <div class="form__group field">
           <input
@@ -9,6 +9,7 @@
             placeholder="email addres"
             name="emailAdress"
             v-model="emailAdress"
+            :run="!emailAdress ? null : emailAdress"
             id="emailAdress"
             required
           />
@@ -20,6 +21,7 @@
             class="form__field"
             placeholder="first name"
             v-model="firstName"
+            :run="!firstName ? null : firstName"
             name="firstName"
             id="firstName"
             required
@@ -32,6 +34,7 @@
             class="form__field"
             placeholder="Last name"
             name="lastName"
+            :run="!lastName ? null : lastName"
             v-model="lastName"
             id="lastName"
             required
@@ -39,12 +42,9 @@
           <label for="lastName" class="form__label">Last name</label>
         </div>
         <div class="btn-container">
-          <button class="btn col-3" type="button" v-on:click="createPerson">
-                  <router-link class="btn  " v-bind:to="'/'"
-                >Add person</router-link
-              >
+          <button class="btn col-3" type="button" v-on:click="editPerson(id)">
+            Save changes
           </button>
-          
         </div>
       </form>
     </div>
@@ -59,28 +59,45 @@ export default {
   data() {
     return {
       error: "",
-      emailAddress: "",
+      emailAdress: "",
       firstName: "",
       lastName: "",
+      id: "",
+      loading: false,
     };
   },
-  create(){
-      console.log(this.$route.params._id)
+
+  async created() {
+    this.fetchOnePerson();
+  },
+  watch: {
+    $route:"fetchOnePerson",
   },
   methods: {
-    async editPerson() {
-      await PersonService.editPerson({
+    async fetchOnePerson() {
+      this.error = this.post = null;
+      this.loading = true;
+      const id = this.$route.params.id;
+      const response = await PersonService.getOnePerson(id);
+      if (this.$route.params.id !== response._id) return;
+      this.loading = false;
+      this.emailAdress = response.emailAdress;
+      this.firstName = response.firstName;
+      this.lastName = response.lastName;
+      this.id = this.$route.params.id;
+    },
+     editPerson(id) {
+       PersonService.editPerson(id,{
         emailAdress: this.emailAdress,
         firstName: this.firstName,
         lastName: this.lastName,
       });
-      await PersonService.getPersons();
+      this.$router.push("/");
     },
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .btn-container {
   margin: 20px;
@@ -100,8 +117,8 @@ button.btn {
   font-size: 1.3rem;
   opacity: 0.9;
 }
-a{
-  color:white !important;
+a {
+  color: white !important;
 }
 
 button:hover {

@@ -27,15 +27,17 @@
           <hr />
           <h3>{{ person.lastName }}</h3>
           <div class="container">
-            <button v-on:click="deletePerson(person._id)" class="danger">
+            <button
+              v-on:click="deletePerson(person._id)"
+              class="btn btn-danger"
+            >
               delete
             </button>
-            <button>update</button>
-            <button>
-              <router-link v-bind:to="'/person/' + person._id"
-                >View more</router-link
-              >
-            </button>
+            <router-link
+              class="btn btn-primary"
+              v-bind:to="'/edit-person/' + person._id"
+              >update</router-link
+            >
           </div>
         </div>
       </div>
@@ -74,9 +76,6 @@ export default {
   },
   computed: {
     filteredPerson() {
-      console.log(this.search);
-      const value = this.search.charAt(0).toUpperCase() + this.search.slice(1);
-      console.log(value);
       return this.persons.filter((person) => {
         return (
           this.search.length === 0 ||
@@ -92,7 +91,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.m-10{
+.m-10 {
   margin: 50px;
 }
 hr {
@@ -123,18 +122,8 @@ hr {
   justify-content: flex-start;
   align-items: baseline;
 }
-button {
-  background-color: #04aa6d;
-  color: white;
-  padding: 14px 20px;
-  border-radius: 8px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-.p-10{
+
+.p-10 {
   padding: 4vh;
 }
 button:hover {

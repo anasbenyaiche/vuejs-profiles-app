@@ -15,7 +15,7 @@ const routes = [
     component: AddPersonPage
   },
   {
-    path: '/edit-person/:_id',
+    path: '/edit-person/:id',
     name: 'EditPerson',
     component: EditPersonPage
   },

@@ -6,6 +6,7 @@ class PersonService {
     static getPersons() {
         return new Promise( async (resolve, reject) =>{
             try {
+             
                const res = await  httpCommun.get('/persons');
 
                const data = res.data
@@ -17,10 +18,10 @@ class PersonService {
         } ) 
     }
     // get one Person
-    static getOnePerson(_id) {
+    static getOnePerson(id) {
         return new Promise( async (resolve, reject) =>{
             try {
-               const res = await  httpCommun.get(`/persons/${_id}`);
+               const res = await  httpCommun.get(`/persons/${id}`);
                const data = res.data
                resolve(data)
             } catch (error) {
@@ -53,10 +54,10 @@ class PersonService {
             }
         } ) 
     }
-    static editPerson(person) {
-        return new Promise( async (resolve, reject) =>{
+    static editPerson(id,person) {
+             return new Promise( async (resolve, reject) =>{
             try {
-               const res = await  httpCommun.patch(`/persons/${person._id}`, {person});
+               const res = await  httpCommun.patch("/persons/"+id, {...person});
                const data = res.data
                resolve(data)
             } catch (error) {
