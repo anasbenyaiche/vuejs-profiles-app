@@ -30,7 +30,7 @@
           <input
             type="input"
             class="form__field"
-            placeholder="Name"
+            placeholder="Last name"
             name="lastName"
             v-model="lastName"
             id="lastName"
@@ -40,7 +40,9 @@
         </div>
         <div class="btn-container">
           <button class="btn" type="button" v-on:click="createPerson">
-            Add person
+                  <router-link class="btn " v-bind:to="'/'"
+                >Add person</router-link
+              >
           </button>
         </div>
       </form>
@@ -83,15 +85,19 @@ export default {
 }
 button.btn {
   background-color: #04aa6d;
-  color: white;
+  color: white !important;
   padding: 14px 20px;
   border-radius: 8px;
+  text-decoration: none;
   margin: 8px 0;
   border: none;
   cursor: pointer;
   width: 50%;
   font-size: 1.3rem;
   opacity: 0.9;
+}
+a{
+  color:white !important;
 }
 
 button:hover {
