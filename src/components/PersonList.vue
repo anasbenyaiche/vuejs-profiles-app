@@ -13,7 +13,7 @@
         <hr>
         <h3>{{ person.lastName }}</h3>
         <div class="container">
-       <button class="danger">delete</button>
+       <button  v-on:click="deletePerson(person._id)" class="danger">delete</button>
           <button >update</button>
         </div>
    
@@ -47,6 +47,12 @@ export default {
       console.log(error);
     }
   },
+  methods: {
+       async deletePerson(id) {
+      await PersonService.deletePerson(id);
+   this.persons = await PersonService.getPersons();
+    },
+  }
 };
 </script>
 

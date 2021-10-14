@@ -41,10 +41,10 @@ class PersonService {
             }
         } ) 
     }
-    static deletePerson(person) {
+    static deletePerson(id) {
         return new Promise( async (resolve, reject) =>{
             try {
-               const res = await  httpCommun.delete(`/persons/${person._id}` );
+               const res = await  httpCommun.delete(`/persons/${id}` );
                const data = res.data
                resolve(data)
             } catch (error) {

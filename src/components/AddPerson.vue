@@ -8,6 +8,7 @@
             class="form__field"
             placeholder="email addres"
             name="emailAdress"
+            v-model="emailAdress"
             id="emailAdress"
             required
           />
@@ -17,7 +18,8 @@
           <input
             type="input"
             class="form__field"
-            placeholder="Name"
+            placeholder="first name"
+            v-model="firstName"
             name="firstName"
             id="firstName"
             required
@@ -30,13 +32,16 @@
             class="form__field"
             placeholder="Name"
             name="lastName"
+            v-model="lastName"
             id="lastName"
             required
           />
           <label for="lastName" class="form__label">Last name</label>
         </div>
         <div class="btn-container">
-        <button class="btn" type="button" v-on:click="createPerson0">Add person</button>
+          <button class="btn" type="button" v-on:click="createPerson">
+            Add person
+          </button>
         </div>
       </form>
     </div>
@@ -51,53 +56,53 @@ export default {
   data() {
     return {
       error: "",
-      person: {
-        emailAddress: "",
-        firstName: "",
-        lastName: "",
-      },
+      emailAddress: "",
+      firstName: "",
+      lastName: "",
     };
   },
-  async created() {
-    try {
-      this.persons = await PersonService.getPersons();
-      console.log(this.persons);
-    } catch (error) {
-      console.log(error);
-    }
+  methods: {
+    async createPerson() {
+      await PersonService.createOnePerson({
+        emailAdress: this.emailAdress,
+        firstName: this.firstName,
+        lastName: this.lastName,
+      });
+      await PersonService.getPersons();
+    },
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.btn-container{
-    margin: 20px;
-    display: flex;
-    justify-content: flex-start;
+.btn-container {
+  margin: 20px;
+  display: flex;
+  justify-content: flex-start;
 }
 button.btn {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
   padding: 14px 20px;
   border-radius: 8px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 25%;
-    font-size: 1.3rem;
+  width: 50%;
+  font-size: 1.3rem;
   opacity: 0.9;
 }
 
 button:hover {
-  opacity:1;
+  opacity: 1;
 }
 
-.form__container{
-border: 1px solid black;
-padding: 4vh;
-margin:5% 20% ;
-    }
+.form__container {
+  border: 1px solid black;
+  padding: 4vh;
+  margin: 5% 20%;
+}
 .form__group {
   position: relative;
   padding: 15px 0 0;
@@ -111,7 +116,7 @@ margin:5% 20% ;
   border-bottom: 2px solid #9b9b9b;
   outline: 0;
   font-size: 1.3rem;
-  color: #fff;
+  color: #9b9b9b;
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
