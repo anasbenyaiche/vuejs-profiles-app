@@ -1,17 +1,17 @@
 <template>
   <div class="about">
     <h1>Edit person</h1>
-    <AddPerson />
+    <EditPerson />
   </div>
 </template>
 <script>
 // @ is an alias to /src
-import AddPerson from '@/components/AddPerson.vue'
+import EditPerson from '@/components/EditPerson.vue'
 
 export default {
-  name: 'AddPersonPage',
+  name: 'EditPersonPage',
   components: {
-    AddPerson
+    EditPerson
   }
 }
 </script>
